@@ -61,7 +61,7 @@ const FeedbackForm = () => {
 
   if (submitted) {
     return (
-      <div className="max-w-md mx-auto bg-card rounded-lg p-8 text-center border border-border">
+      <div className="w-full max-w-lg mx-auto bg-card rounded-lg p-8 text-center border border-border shadow-lg">
         <div className="text-6xl mb-4">☕</div>
         <h2 className="text-2xl font-bold text-foreground mb-2">Thank You!</h2>
         <p className="text-muted-foreground">
@@ -72,7 +72,7 @@ const FeedbackForm = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto bg-card rounded-lg p-8 border border-border">
+    <div className="w-full max-w-lg mx-auto bg-card rounded-lg p-6 sm:p-8 border border-border shadow-lg">
       <div className="text-center mb-6">
         <div className="text-4xl mb-2">☕</div>
         <h1 className="text-2xl font-bold text-foreground mb-2">Coffee Shop Feedback</h1>
@@ -115,10 +115,10 @@ const FeedbackForm = () => {
 
         {/* Rating */}
         <div>
-          <label className="block text-sm font-medium text-foreground mb-2">
+          <label className="block text-sm font-medium text-foreground mb-3">
             Overall Rating
           </label>
-          <div className="flex space-x-1">
+          <div className="flex justify-center space-x-2 mb-2">
             {[1, 2, 3, 4, 5].map((star) => (
               <button
                 key={star}
@@ -126,28 +126,38 @@ const FeedbackForm = () => {
                 onClick={() => handleStarClick(star)}
                 onMouseEnter={() => setHoveredStar(star)}
                 onMouseLeave={() => setHoveredStar(0)}
-                className="text-2xl transition-colors hover:scale-110 transform transition-transform"
+                className="group relative p-1 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded"
               >
-                <span
-                  className={`${
+                <div
+                  className={`text-3xl transition-all duration-200 ${
                     star <= (hoveredStar || formData.rating)
-                      ? 'text-accent'
-                      : 'text-muted'
+                      ? 'text-accent drop-shadow-md transform scale-110'
+                      : 'text-muted-foreground/40 hover:text-muted-foreground/60'
                   }`}
                 >
-                  ⭐
-                </span>
+                  {star <= (hoveredStar || formData.rating) ? '★' : '☆'}
+                </div>
+                {/* Tooltip */}
+                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-coffee-dark text-primary-foreground px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                  {star === 1 && "Poor"}
+                  {star === 2 && "Fair"}
+                  {star === 3 && "Good"}
+                  {star === 4 && "Very Good"}
+                  {star === 5 && "Excellent"}
+                </div>
               </button>
             ))}
           </div>
           {formData.rating > 0 && (
-            <p className="text-sm text-muted-foreground mt-1">
-              {formData.rating === 1 && "Poor"}
-              {formData.rating === 2 && "Fair"}
-              {formData.rating === 3 && "Good"}
-              {formData.rating === 4 && "Very Good"}
-              {formData.rating === 5 && "Excellent"}
-            </p>
+            <div className="text-center">
+              <p className="text-sm font-medium text-accent">
+                {formData.rating === 1 && "Poor - We'll do better!"}
+                {formData.rating === 2 && "Fair - Thanks for the feedback"}
+                {formData.rating === 3 && "Good - We appreciate it!"}
+                {formData.rating === 4 && "Very Good - So glad you enjoyed!"}
+                {formData.rating === 5 && "Excellent - You made our day! ☕"}
+              </p>
+            </div>
           )}
         </div>
 
@@ -216,32 +226,32 @@ const FeedbackForm = () => {
 
         {/* Recommend */}
         <div>
-          <label className="block text-sm font-medium text-foreground mb-2">
+          <label className="block text-sm font-medium text-foreground mb-3">
             Would you recommend us to a friend?
           </label>
-          <div className="flex space-x-4">
-            <label className="flex items-center">
+          <div className="flex space-x-6 justify-center sm:justify-start">
+            <label className="flex items-center cursor-pointer group">
               <input
                 type="radio"
                 name="recommend"
                 value="yes"
                 checked={formData.recommend === 'yes'}
                 onChange={handleInputChange}
-                className="mr-2 text-primary focus:ring-ring"
+                className="mr-3 w-4 h-4 text-primary focus:ring-ring focus:ring-2"
                 required
               />
-              <span className="text-foreground">Yes</span>
+              <span className="text-foreground group-hover:text-primary transition-colors">Yes, absolutely!</span>
             </label>
-            <label className="flex items-center">
+            <label className="flex items-center cursor-pointer group">
               <input
                 type="radio"
                 name="recommend"
                 value="no"
                 checked={formData.recommend === 'no'}
                 onChange={handleInputChange}
-                className="mr-2 text-primary focus:ring-ring"
+                className="mr-3 w-4 h-4 text-primary focus:ring-ring focus:ring-2"
               />
-              <span className="text-foreground">No</span>
+              <span className="text-foreground group-hover:text-primary transition-colors">Not yet</span>
             </label>
           </div>
         </div>
@@ -249,9 +259,9 @@ const FeedbackForm = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-primary text-primary-foreground py-3 px-4 rounded-md font-medium hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+          className="w-full bg-primary text-primary-foreground py-3 px-6 rounded-md font-medium hover:opacity-90 transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 shadow-md"
         >
-          Submit Feedback
+          Submit Feedback ☕
         </button>
       </form>
     </div>
