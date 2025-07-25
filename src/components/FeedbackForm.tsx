@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Star, Coffee, Mail, User, MessageCircle, ThumbsUp } from 'lucide-react';
 
 interface FormData {
   name: string;
@@ -62,7 +63,7 @@ const FeedbackForm = () => {
   if (submitted) {
     return (
       <div className="w-full max-w-lg mx-auto bg-card rounded-lg p-8 text-center border border-border shadow-lg">
-        <div className="text-6xl mb-4">☕</div>
+        <Coffee size={64} className="mx-auto mb-4 text-coffee-medium" />
         <h2 className="text-2xl font-bold text-foreground mb-2">Thank You!</h2>
         <p className="text-muted-foreground">
           Your feedback helps us brew better experiences for everyone.
@@ -74,7 +75,7 @@ const FeedbackForm = () => {
   return (
     <div className="w-full max-w-lg mx-auto bg-card rounded-lg p-6 sm:p-8 border border-border shadow-lg">
       <div className="text-center mb-6">
-        <div className="text-4xl mb-2">☕</div>
+        <Coffee size={48} className="mx-auto mb-2 text-coffee-medium" />
         <h1 className="text-2xl font-bold text-foreground mb-2">Coffee Shop Feedback</h1>
         <p className="text-muted-foreground">Tell us about your experience!</p>
       </div>
@@ -82,7 +83,8 @@ const FeedbackForm = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name */}
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+          <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2 flex items-center gap-2">
+            <User size={16} className="text-muted-foreground" />
             Name
           </label>
           <input
@@ -92,14 +94,15 @@ const FeedbackForm = () => {
             value={formData.name}
             onChange={handleInputChange}
             required
-            className="w-full px-3 py-2 border border-border rounded-md bg-input text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+            className="w-full px-3 py-2 border border-border rounded-md bg-input text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200"
             placeholder="Your name"
           />
         </div>
 
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+          <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2 flex items-center gap-2">
+            <Mail size={16} className="text-muted-foreground" />
             Email <span className="text-muted-foreground">(optional)</span>
           </label>
           <input
@@ -108,14 +111,15 @@ const FeedbackForm = () => {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border border-border rounded-md bg-input text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+            className="w-full px-3 py-2 border border-border rounded-md bg-input text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200"
             placeholder="your.email@example.com"
           />
         </div>
 
         {/* Rating */}
         <div>
-          <label className="block text-sm font-medium text-foreground mb-3">
+          <label className="block text-sm font-medium text-foreground mb-3 flex items-center gap-2">
+            <Star size={16} className="text-muted-foreground" />
             Overall Rating
           </label>
           <div className="flex justify-center space-x-2 mb-2">
@@ -128,15 +132,15 @@ const FeedbackForm = () => {
                 onMouseLeave={() => setHoveredStar(0)}
                 className="group relative p-1 transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded"
               >
-                <div
-                  className={`text-3xl transition-all duration-200 ${
+                <Star
+                  size={32}
+                  className={`transition-all duration-200 ${
                     star <= (hoveredStar || formData.rating)
-                      ? 'text-accent drop-shadow-md transform scale-110'
+                      ? 'text-accent fill-accent drop-shadow-md transform scale-110'
                       : 'text-muted-foreground/40 hover:text-muted-foreground/60'
                   }`}
-                >
-                  {star <= (hoveredStar || formData.rating) ? '★' : '☆'}
-                </div>
+                  fill={star <= (hoveredStar || formData.rating) ? 'currentColor' : 'none'}
+                />
                 {/* Tooltip */}
                 <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-coffee-dark text-primary-foreground px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
                   {star === 1 && "Poor"}
@@ -163,7 +167,8 @@ const FeedbackForm = () => {
 
         {/* Favorite Drink */}
         <div>
-          <label htmlFor="favoriteDrink" className="block text-sm font-medium text-foreground mb-2">
+          <label htmlFor="favoriteDrink" className="block text-sm font-medium text-foreground mb-2 flex items-center gap-2">
+            <Coffee size={16} className="text-muted-foreground" />
             Favorite Drink
           </label>
           <select
@@ -172,7 +177,7 @@ const FeedbackForm = () => {
             value={formData.favoriteDrink}
             onChange={handleInputChange}
             required
-            className="w-full px-3 py-2 border border-border rounded-md bg-input text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+            className="w-full px-3 py-2 border border-border rounded-md bg-input text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200 cursor-pointer"
           >
             <option value="">Select your favorite...</option>
             <option value="espresso">Espresso</option>
@@ -189,7 +194,8 @@ const FeedbackForm = () => {
 
         {/* Experience */}
         <div>
-          <label htmlFor="experience" className="block text-sm font-medium text-foreground mb-2">
+          <label htmlFor="experience" className="block text-sm font-medium text-foreground mb-2 flex items-center gap-2">
+            <ThumbsUp size={16} className="text-muted-foreground" />
             How was your experience?
           </label>
           <select
@@ -198,7 +204,7 @@ const FeedbackForm = () => {
             value={formData.experience}
             onChange={handleInputChange}
             required
-            className="w-full px-3 py-2 border border-border rounded-md bg-input text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+            className="w-full px-3 py-2 border border-border rounded-md bg-input text-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent transition-all duration-200 cursor-pointer"
           >
             <option value="">Select...</option>
             <option value="excellent">Excellent</option>
@@ -210,7 +216,8 @@ const FeedbackForm = () => {
 
         {/* Comments */}
         <div>
-          <label htmlFor="comments" className="block text-sm font-medium text-foreground mb-2">
+          <label htmlFor="comments" className="block text-sm font-medium text-foreground mb-2 flex items-center gap-2">
+            <MessageCircle size={16} className="text-muted-foreground" />
             Comments & Suggestions
           </label>
           <textarea
@@ -219,14 +226,15 @@ const FeedbackForm = () => {
             value={formData.comments}
             onChange={handleInputChange}
             rows={4}
-            className="w-full px-3 py-2 border border-border rounded-md bg-input text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent resize-none"
+            className="w-full px-3 py-2 border border-border rounded-md bg-input text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent resize-none transition-all duration-200"
             placeholder="Tell us what you loved or how we can improve..."
           />
         </div>
 
         {/* Recommend */}
         <div>
-          <label className="block text-sm font-medium text-foreground mb-3">
+          <label className="block text-sm font-medium text-foreground mb-3 flex items-center gap-2">
+            <ThumbsUp size={16} className="text-muted-foreground" />
             Would you recommend us to a friend?
           </label>
           <div className="flex space-x-6 justify-center sm:justify-start">
@@ -237,7 +245,7 @@ const FeedbackForm = () => {
                 value="yes"
                 checked={formData.recommend === 'yes'}
                 onChange={handleInputChange}
-                className="mr-3 w-4 h-4 text-primary focus:ring-ring focus:ring-2"
+                className="mr-3 w-4 h-4 text-primary focus:ring-ring focus:ring-2 accent-primary cursor-pointer"
                 required
               />
               <span className="text-foreground group-hover:text-primary transition-colors">Yes, absolutely!</span>
@@ -249,7 +257,7 @@ const FeedbackForm = () => {
                 value="no"
                 checked={formData.recommend === 'no'}
                 onChange={handleInputChange}
-                className="mr-3 w-4 h-4 text-primary focus:ring-ring focus:ring-2"
+                className="mr-3 w-4 h-4 text-primary focus:ring-ring focus:ring-2 accent-primary cursor-pointer"
               />
               <span className="text-foreground group-hover:text-primary transition-colors">Not yet</span>
             </label>
@@ -259,9 +267,10 @@ const FeedbackForm = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-primary text-primary-foreground py-3 px-6 rounded-md font-medium hover:opacity-90 transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 shadow-md"
+          className="w-full bg-primary text-primary-foreground py-3 px-6 rounded-md font-medium hover:opacity-90 transform hover:scale-[1.02] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 shadow-md flex items-center justify-center gap-2"
         >
-          Submit Feedback ☕
+          <Coffee size={20} />
+          Submit Feedback
         </button>
       </form>
     </div>
